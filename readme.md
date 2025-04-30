@@ -46,13 +46,23 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-I have been an avid user of Evernote since July 2008 and have amassed over 53,000 notes. Over those 16 years, I have seen many changes to both Evernote the company and the client itself. The recent purchase by Bending Spoons had the potential to make or break the company but has, in my opinion, been overwhelmingly positive for Evernote (despite what the naysayers on Reddit say!).
+40% of Britons haven’t read a single book in the last 12 months and the in the UK, the average adult reads approximately three books per year, according to a recent poll by YouGov. I, on the other hand, read on average 19 a year. 
 
-One feature I have wanted Evernote to have is some form of automation that manipulates notes based on rules - very similar to the rules [available in Outlook](https://support.microsoft.com/en-gb/office/manage-email-messages-by-using-rules-c24f5dea-9465-4df4-ad17-a50704d66c59). After 16 years of waiting for Evernote to implement this, I got fed up with waiting and wrote it myself. 
+### Too Many Books
 
-While I have tried to make it very simple it still requires a bit of setup and hosting by you. As part of the simplicity it has no database, few external libraries (simple.css, smarty, and, of course, the Evernote SDK amongst others), and crucially, has no security, I recommend that you use [Cloudflare Zero Trust](https://www.spokenlikeageek.com/2024/04/09/cloudflare-zero-trust/) to secure it. If you can live with all of that read on.
+I suffer from a couple of problems where books are concerned. Firstly, books (that I'd like to read) are being published at a rate faster than I can read them, and secondly, I have a problem whereby if I see an autobiography of a contemporary musician, I have to have it. This all means that I have a very large backlog of books to read, and occasionally, I'd like to re-read some favourites too. Too many books, not enough time.
 
-One final word of warning - this comes with absolutely no warranty whatsoever. Here be dragons!
+### Enter bookISBN2Task
+
+I also suffer from not remembering just what books I own and what I might want to read next - enter bookISBN2Task.
+
+I decided to write a simple little app that I could use to scan book bar codes and then record that book on my reading list. I am aware that I could do that using something like GoodReads but I didn't want to do that for a few reasons: 
+
+* I didn't want to be tied in to the Amazon ecosystem for this
+* I keep my reading list on Remember the Milk
+* I wanted the challenge of writing it myself.
+
+This simple little app uses the [Quagga](https://serratus.github.io/quaggaJS/) library to scan a barcode which is then decoded and sent to [Open Library](https://openlibrary.org/dev/docs/api/books) to look up the details. You are then given then details of the book which you can then add to your reading list. At present supported is both Remember the Milk and a simple csv which you can also view through the app.
 
 <a href='https://ko-fi.com/Y8Y0POEES' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi5.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
@@ -66,6 +76,7 @@ One final word of warning - this comes with absolutely no warranty whatsoever. H
 
 * [PHP](https://php.net)
 * [Open Library](https://openlibrary.org/dev/docs/api/books)
+* [Quagga](https://serratus.github.io/quaggaJS/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -80,7 +91,7 @@ One final word of warning - this comes with absolutely no warranty whatsoever. H
 
 Requirements are very simple, it requires the following:
 
-1. PHP (I tested on v8.1.13)
+1. PHP (I tested on v8.4.1)
 
 ### Installation
 
@@ -91,37 +102,8 @@ Here are some basic instructions to help you get up-and running:
 
     > git clone https://github.com/williamsdb/bookISBN2Task
     
-2. install [composer](https://getcomposer.org/)
-3. add the Evernote SDK (evernote-cloud-sdk-php) and smarty templating engine
-
-    > composer.phar require evernote/evernote-cloud-sdk-php
-    
-    > composer.phar require smarty/smarty
-
-4. update the SDK using the [details here](https://github.com/Evernote/evernote-cloud-sdk-php/issues/45)
-5. create a cache folder for the Smarty templates (templates_c) and give the web server process to write to it
-6. rename config_dummy.php to config.php and give the web server process to write to it 
-7. create two empty files: rules.db, logs.db and give them appropriate permissions
-
-On my LAMP server I achieve this as follows:
-
-
-```console
-php composer.phar require smarty/smarty
-php composer.phar require evernote/evernote-cloud-sdk-php
-sudo mkdir templates_c
-sudo chown apache:apache templates_c -R
-sudo chcon -R -t httpd_sys_rw_content_t templates_c
-sudo mv config_dummy.php config.php
-sudo touch rules.db
-sudo touch logs.db
-sudo chown apache:apache *.db
-sudo chown apache:apache *.log
-sudo chcon -R -t httpd_sys_rw_content_t *.db
-sudo chown apache:apache config.php
-sudo chcon -R -t httpd_sys_rw_content_t config.php
-```
-
+3. rename config_dummy.php to config.php and add your Remember the Milk details if you are using it 
+7. create an empty file: reading_list.csv and give it appropriate permissions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,7 +115,7 @@ sudo chcon -R -t httpd_sys_rw_content_t config.php
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+Open a browser and point it to where you have installed the code. Works best on a mobile browser. Needs internet to access the Open Libary.
 
 <!-- ROADMAP -->
 ## Known Issues
