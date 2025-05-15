@@ -17,7 +17,7 @@ try {
 // Read the CSV file
 $data = [];
 if (($handle = fopen(CSVFILE, "r")) !== false) {
-    while (($row = fgetcsv($handle, 1000, ",")) !== false) {
+    while (($row = fgetcsv($handle, 1000, ",", escape: "")) !== false) {
         $data[] = $row;
     }
     fclose($handle);

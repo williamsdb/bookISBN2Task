@@ -115,7 +115,7 @@ if (scanButton) {
 if (readButton) {
   readButton.addEventListener("click", () => {
     recordDetailsCSV();
-    //recordDetailsRTM();
+    recordDetailsRTM();
   });
 }
 
@@ -147,6 +147,53 @@ function recordDetailsCSV() {
   readButton.style.display = "none";
 
   fetch("record_csv.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        resultDiv.innerHTML = "Details successfully recorded!";
+      } else {
+        resultDiv.innerHTML = `Error recording details: ${result.error}`;
+      }
+    })
+    .catch((error) => {
+      resultDiv.innerHTML = `Error: ${error.message}`;
+    });
+}
+
+// This function sends the book details to a PHP script for processing
+// and stores them in Remember the Milk (RTM).
+function recordDetailsRTM() {
+  const title = document
+    .getElementById("book-title")
+    .parentNode.textContent.replace("Title: ", "")
+    .trim();
+  console.log(title);
+  const authors = document
+    .getElementById("authors")
+    .parentNode.textContent.replace("Author(s): ", "")
+    .trim();
+  console.log(authors);
+  const subject = document
+    .getElementById("subject")
+    .parentNode.textContent.replace("Subject: ", "")
+    .trim();
+  console.log(subject);
+  const url = document
+    .querySelector("button[onclick]")
+    .getAttribute("onclick")
+    .match(/window\.open\('(.*?)'/)[1];
+  console.log(url);
+
+  const data = { title, authors, subject, url };
+  readButton.style.display = "none";
+
+  fetch("record_task.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
