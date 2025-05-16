@@ -2,6 +2,7 @@ const video = document.getElementById("camera");
 const scanButton = document.getElementById("scan-button");
 const readButton = document.getElementById("read-button");
 const resultDiv = document.getElementById("result");
+const h2title = document.getElementById("h2title");
 
 let quaggaReady = false; // Track if Quagga is initialized
 
@@ -70,6 +71,7 @@ function initQuagga() {
 function startScanning() {
   if (quaggaReady) {
     video.style.display = "block";
+    h2title.style.display = "block";
     scanButton.style.display = "none";
     readButton.style.display = "none";
     resultDiv.innerHTML = "Scanning...";
@@ -101,6 +103,8 @@ function onBarcodeDetected(data) {
 
 // Start scanning when button is clicked
 if (scanButton) {
+  h2title.style.display = "block";
+
   scanButton.addEventListener("click", () => {
     if (!quaggaReady) {
       Quagga.stop(); // Ensure any previous instance is stopped
@@ -186,9 +190,10 @@ function fetchBookDetails(isbn) {
                 <p><strong>ISBN:</strong> ${data.isbn}</p>
                 <button onclick="window.open('${
                   data.url
-                }', '_blank')"><strong>Open Library Link</strong></button>
+                }', '_blank')" style="display: block;"><strong>Open Library Link</strong></button>
             `;
         readButton.style.display = "block";
+        h2title.style.display = "none";
       }
     })
     .catch((error) => {
