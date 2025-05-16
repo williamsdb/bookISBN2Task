@@ -3,91 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="icon" href="./apple-touch-icon.png" />
+    <title>BookISBN2Task</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="./styles.css" />
     <!-- Include jQuery and DataTables CSS/JS -->
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"
     />
+
+    <!-- Font Awesome Free -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-    <link rel="icon" href="./apple-touch-icon.png" />
-    <title>Barcode Scanner</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-      }
-      #camera {
-        width: 100vw; /* Full width */
-        height: 56vw; /* Maintain 16:9 aspect ratio (wider than tall) */
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover; /* Fill the container */
-        border: 1px solid #007bff;
-      }
-      #icon {
-        position: relative;
-        top: 7px;
-        right: 7px;
-        width: 30px;
-      }
-      #scan-button {
-        display: none;
-        margin: 20px auto;
-      }
-      #read-button {
-        display: none;
-        margin: 20px auto;
-      }
-    </style>
   </head>
   <body>
-    <h1><img src="./apple-touch-icon.png" id="icon" />Scan ISBN Barcode</h1>
-    <h3>
-      <a href="/" style="text-decoration: none">🏠</a>
-      <a href="/" style="text-decoration: none">📷</a>
-      <a href="booklist.php" style="text-decoration: none">📚</a>
-      <a href="https://spokenlikeageek.com" style="text-decoration: none">❓</a>
-    </h3>
-    <form id="book-search-form">
-      <input
-        type="text"
-        id="book-title"
-        placeholder="Enter book title or part of it"
-        required
-      />
-      <button type="submit">Search</button>
-    </form>
-    <table id="results-table" class="display" style="width: 100%">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <header class="app-header">
+      <h1>BookISBN2Task</h1>
+    </header>
 
-    <small
-      >Built by
-      <a href="https://neilthompson.me" target="_blank">Neil Thompson</a
-      >.</small
-    >
+    <main class="app-main">
+      <h2>Search the Open Library Catalogue</h2>
+      <form id="book-search-form">
+        <input
+          type="text"
+          id="book-title"
+          placeholder="Enter book title or part of it"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <table id="results-table" class="display" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
 
+      <small>
+        Built by
+        <a href="https://neilthompson.me" target="_blank" rel="noopener"
+          >Neil Thompson</a
+        >.
+      </small>
+    </main>
+
+    <footer class="app-footer">
+      <nav class="tab-bar">
+        <a href="/" class="tab-link" aria-label="Home"
+          ><i class="fas fa-home"></i
+        ></a>
+        <a href="search.html" class="tab-link" aria-label="Search"
+          ><i class="fas fa-search"></i
+        ></a>
+        <a href="booklist.html" class="tab-link" aria-label="Books"
+          ><i class="fas fa-book-open"></i
+        ></a>
+        <a href="https://spokenlikeageek.com" class="tab-link" aria-label="Help"
+          ><i class="fas fa-question-circle"></i
+        ></a>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
