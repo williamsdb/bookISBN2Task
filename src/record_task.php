@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $apiKey = RTM_API_KEY;
         $sharedSecret = RTM_SHARED_SECRET;
 
-        $taskResponse = createTask($title . ' - ' . $authors . ' ' . $url);
+        $taskResponse = createTask($title . ' - ' . $authors . ' #' . $subject . ' ' . $url);
         if ($taskResponse['rsp']['stat'] == 'ok') {
             echo json_encode(['success' => true]);
         } else {

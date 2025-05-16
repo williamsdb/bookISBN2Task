@@ -129,22 +129,18 @@ function recordDetails(call) {
     .getElementById("book-title")
     .parentNode.textContent.replace("Title: ", "")
     .trim();
-  console.log(title);
   const authors = document
     .getElementById("authors")
     .parentNode.textContent.replace("Author(s): ", "")
     .trim();
-  console.log(authors);
   const subject = document
     .getElementById("subject")
     .parentNode.textContent.replace("Subject: ", "")
     .trim();
-  console.log(subject);
   const url = document
     .querySelector("button[onclick]")
     .getAttribute("onclick")
     .match(/window\.open\('(.*?)'/)[1];
-  console.log(url);
 
   const data = { title, authors, subject, url };
   readButton.style.display = "none";
